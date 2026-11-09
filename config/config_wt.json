@@ -1,0 +1,273 @@
+{
+  "serial": {
+    "device": "/dev/ttyS3",
+    "baudrate": 9600,
+    "databits": 8,
+    "stopbits": 1,
+    "parity": "none",
+    "timeout_ms": 120,
+    "inter_frame_delay_ms": 4,
+    "retries": 2,
+    "retry_backoff_ms": 50
+  },
+  "rs485": {
+    "mode": "auto",
+    "de_gpio": 42,
+    "de_active_high": true,
+    "post_tx_delay_us": 500
+  },
+  "device": {
+    "name": "wt-vb01-cooling-pump",
+    "slave_id": 80,
+    "function": "0x03",
+    "poll_interval_ms": 1000,
+    "stale_after_ms": 3000,
+    "points": [
+      {
+        "name": "vib_vel_x",
+        "addr": "0x003A",
+        "type": "int16",
+        "scale": 0.1,
+        "unit": "mm/s",
+        "min": 0,
+        "max": 500
+      },
+      {
+        "name": "vib_vel_y",
+        "addr": "0x003B",
+        "type": "int16",
+        "scale": 0.1,
+        "unit": "mm/s",
+        "min": 0,
+        "max": 500
+      },
+      {
+        "name": "vib_vel_z",
+        "addr": "0x003C",
+        "type": "int16",
+        "scale": 0.1,
+        "unit": "mm/s",
+        "min": 0,
+        "max": 500
+      },
+      {
+        "name": "vib_acc_x",
+        "addr": "0x0034",
+        "type": "int16",
+        "scale": 0.00048828125,
+        "unit": "g",
+        "min": -16,
+        "max": 16
+      },
+      {
+        "name": "vib_acc_y",
+        "addr": "0x0035",
+        "type": "int16",
+        "scale": 0.00048828125,
+        "unit": "g",
+        "min": -16,
+        "max": 16
+      },
+      {
+        "name": "vib_acc_z",
+        "addr": "0x0036",
+        "type": "int16",
+        "scale": 0.00048828125,
+        "unit": "g",
+        "min": -16,
+        "max": 16
+      },
+      {
+        "name": "chip_temp",
+        "addr": "0x0040",
+        "type": "int16",
+        "scale": 0.01,
+        "unit": "degC",
+        "min": -40,
+        "max": 125
+      }
+    ]
+  },
+  "can": {
+    "enabled": true,
+    "device": "can0",
+    "bitrate": 250000,
+    "poll_interval_ms": 200,
+    "response_timeout_ms": 40,
+    "retries": 2,
+    "stale_after_ms": 1200,
+    "tx_enabled": false,
+    "nodes": [
+      {
+        "name": "cooling_pump",
+        "node_id": "0x10",
+        "cmd_id": "0x210",
+        "signals": [
+          {
+            "name": "pump_flow",
+            "role": "flow",
+            "req_id": "0x620",
+            "resp_id": "0x5A0",
+            "byte": 0,
+            "len": 2,
+            "type": "uint16",
+            "scale": 0.1,
+            "offset": 0,
+            "unit": "L/min",
+            "min": 0,
+            "max": 300,
+            "priority": "normal",
+            "warn_lo": 30,
+            "crit_lo": 10
+          },
+          {
+            "name": "pump_voltage",
+            "role": "voltage",
+            "req_id": "0x621",
+            "resp_id": "0x5A1",
+            "byte": 0,
+            "len": 2,
+            "type": "uint16",
+            "scale": 0.01,
+            "offset": 0,
+            "unit": "V",
+            "min": 0,
+            "max": 60,
+            "priority": "high",
+            "warn_hi": 26,
+            "crit_hi": 28,
+            "warn_lo": 20,
+            "crit_lo": 18
+          },
+          {
+            "name": "pump_current",
+            "role": "current",
+            "req_id": "0x622",
+            "resp_id": "0x5A2",
+            "byte": 0,
+            "len": 2,
+            "type": "uint16",
+            "scale": 0.01,
+            "offset": 0,
+            "unit": "A",
+            "min": 0,
+            "max": 30,
+            "priority": "high",
+            "warn_hi": 8,
+            "crit_hi": 10
+          }
+        ]
+      },
+      {
+        "name": "fan",
+        "node_id": "0x11",
+        "cmd_id": "0x211",
+        "signals": [
+          {
+            "name": "fan_flow",
+            "role": "flow",
+            "req_id": "0x630",
+            "resp_id": "0x5B0",
+            "byte": 0,
+            "len": 2,
+            "type": "uint16",
+            "scale": 0.1,
+            "offset": 0,
+            "unit": "L/min",
+            "min": 0,
+            "max": 300,
+            "priority": "normal",
+            "warn_lo": 20,
+            "crit_lo": 8
+          },
+          {
+            "name": "fan_voltage",
+            "role": "voltage",
+            "req_id": "0x631",
+            "resp_id": "0x5B1",
+            "byte": 0,
+            "len": 2,
+            "type": "uint16",
+            "scale": 0.01,
+            "offset": 0,
+            "unit": "V",
+            "min": 0,
+            "max": 60,
+            "priority": "high",
+            "warn_hi": 26,
+            "crit_hi": 28,
+            "warn_lo": 20,
+            "crit_lo": 18
+          },
+          {
+            "name": "fan_current",
+            "role": "current",
+            "req_id": "0x632",
+            "resp_id": "0x5B2",
+            "byte": 0,
+            "len": 2,
+            "type": "uint16",
+            "scale": 0.01,
+            "offset": 0,
+            "unit": "A",
+            "min": 0,
+            "max": 30,
+            "priority": "high",
+            "warn_hi": 4,
+            "crit_hi": 5.5
+          }
+        ]
+      }
+    ]
+  },
+  "opcua": {
+    "port": 4840
+  },
+  "processing": {
+    "window_ms": 10000,
+    "eval_interval_ms": 500,
+    "vib_class_b": 1.8,
+    "vib_class_c": 4.5,
+    "vib_class_d": 11.2
+  },
+  "history": {
+    "enabled": true,
+    "sample_interval_ms": 1000,
+    "max_values": 3600
+  },
+  "alarm": {
+    "rules": [
+      {
+        "name": "vib_velocity_high",
+        "point": "vib_vel_z",
+        "condition": "> 4.5",
+        "level": "warning",
+        "hysteresis": 0.5,
+        "duration_ms": 2000
+      },
+      {
+        "name": "vib_acc_high",
+        "point": "vib_acc_z",
+        "condition": "> 2.0",
+        "level": "critical",
+        "hysteresis": 0.2,
+        "duration_ms": 1000
+      },
+      {
+        "name": "temp_high",
+        "point": "chip_temp",
+        "condition": "> 70",
+        "level": "warning",
+        "hysteresis": 2.0,
+        "duration_ms": 3000
+      },
+      {
+        "name": "data_stale",
+        "point": "*",
+        "condition": "stale",
+        "level": "critical",
+        "duration_ms": 0
+      }
+    ]
+  }
+}

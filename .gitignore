@@ -1,0 +1,17 @@
+# IDE 配置
+.vscode/
+.idea/
+
+# 临时文件
+*.downloading
+~$*
+
+# 编译产物 (C/C++ Linux 常用)
+build/
+*.o
+*.so
+*.a
+*.out
+*.ko
+CMakeFiles/
+cmake_install.cmake
