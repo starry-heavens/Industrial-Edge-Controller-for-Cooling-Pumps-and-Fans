@@ -55,7 +55,8 @@
 7. **异常兜底**：采集心跳 5s 未更新即退出进程，systemd `RestartSec=2` 拉起（实测 2.12s），`StartLimitBurst=5/60s` 防止秒崩死循环。
 
 > 一句话：采集归采集、处理归处理、上传归上传，命令异步执行并闭环反馈。
-
+## 硬件与效果
+可查看 image/.
 ## 目录结构
 
 ```
@@ -66,7 +67,7 @@ test/                   Modbus/串口测试程序
 opcUA_server/open62541/ open62541 源码
 ```
 ##  构建与部署
-编译代码
+编译代码（cmake）
 ```bash
 cmake -S edge-agent -B edge-agent/build \
       -DCMAKE_TOOLCHAIN_FILE=<buildroot-sdk>/toolchainfile.cmake
